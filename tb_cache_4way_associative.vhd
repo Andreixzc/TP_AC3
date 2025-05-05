@@ -91,7 +91,7 @@ begin
         wait for CLK_PERIOD;
         
         -- TESTE 1: LRU Policy - Escrita em endereços diferentes mapeados para o mesmo conjunto
-        report "Teste 1: LRU Policy - Escrita em endereços com mesmo índice";
+        report "Teste 1: LRU Policy - Escrita em endereços com mesmo iindice";
         repl_policy <= '0';  -- LRU
         
         -- Escrever em 5 endereços que mapeiam para o mesmo conjunto (mais que as 4 vias)
@@ -117,11 +117,9 @@ begin
             wait for CLK_PERIOD;
         end loop;
         
-        -- Pequena pausa
         wait for CLK_PERIOD;
         
         -- Verificar qual foi substituído (o primeiro endereço deve ter sido substituído pelo LRU)
-        -- Leitura do primeiro endereço (0) - deve ser um miss
         addr <= std_logic_vector(to_unsigned(0, ADDR_WIDTH));
         rd_en <= '1';
         wr_en <= '0';
@@ -134,7 +132,7 @@ begin
         rd_en <= '0';
         wait for CLK_PERIOD;
         
-        -- Leitura dos outros endereços (256, 512, 768, 1024) - devem ser hits
+        -- Leitura dos outros endereços (256, 512, 768, 1024)
         for i in 1 to 4 loop
             addr <= std_logic_vector(to_unsigned(i * 256, ADDR_WIDTH));
             rd_en <= '1';
